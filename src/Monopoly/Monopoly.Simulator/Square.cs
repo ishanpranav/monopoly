@@ -7,5 +7,6 @@ namespace Monopoly.Simulator;
 internal enum Square
 {
     Go = 0,
-    Jail = 10
+    Jail = 10,
+    GoToJail = 30
 }

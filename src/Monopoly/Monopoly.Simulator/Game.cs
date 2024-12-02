@@ -80,6 +80,14 @@ internal sealed class Game
 
         Square = (Square)((int)(Square + a + b) % Squares);
 
+        if (Square == Square.GoToJail)
+        {
+            GoToJail();
+            PrintStatus(a, b);
+
+            return;
+        }
+
         PrintStatus(a, b);
     }
 }
