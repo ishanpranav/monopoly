@@ -19,7 +19,7 @@ To determine the probability distribution, we simulate many, many turns, and
 note the frequency of each square at the end of each roll.
 
 The table below gives the terminal probabilities for each square on the standard
-monopoly board. These results are consistent with
+monopoly board after 1 billion iterations. These results are consistent with
 [the findings of Truman Collins](http://www.tkcs-collins.com/truman/monopoly/monopoly.shtml).
 
 |Square                            | Probability |
