@@ -56,11 +56,20 @@ internal static class Program
 
         Array.Sort(squares, (a, b) => frequencies[(int)b] - frequencies[(int)a]);
 
+        double total = 0;
+
+        Console.WriteLine("|{0,-32}| Probability |", "Square");
+        Console.WriteLine("|{0,-32}|-------------|", new string('-', 32));
+
         foreach (Square square in squares)
         {
             double probability = (double)frequencies[(int)square] / turns;
 
-            Console.WriteLine("{0,-20}{1:p2}", square, probability);
+            total += probability;
+
+            Console.WriteLine("| {0,-32} |{1,-13:p2}|", square, probability);
         }
+
+        Console.WriteLine("|{0,-32}|{1,-13:p2}|", "TOTAL", total);
     }
 }
