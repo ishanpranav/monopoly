@@ -39,10 +39,28 @@ internal static class Program
         }
 
         Game game = new Game(random);
+        int[] frequencies = new int[(int)(Square.Boardwalk + 1)];
 
-        for (; turns > 0; turns--)
+        for (int turn = 0; turn < turns; turn++)
         {
             game.Move();
+            frequencies[(int)game.Square]++;
+        }
+
+        Square[] squares = new Square[(int)(Square.Boardwalk + 1)];
+
+        for (Square square = Square.Go; square <= Square.Boardwalk; square++)
+        {
+            squares[(int)square] = square;
+        }
+
+        Array.Sort(squares, (a, b) => frequencies[(int)b] - frequencies[(int)a]);
+
+        foreach (Square square in squares)
+        {
+            double probability = (double)frequencies[(int)square] / turns;
+
+            Console.WriteLine("{0,-20}{1:p2}", square, probability);
         }
     }
 }

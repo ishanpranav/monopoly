@@ -8,5 +8,6 @@ internal enum Square
 {
     Go = 0,
     Jail = 10,
-    GoToJail = 30
+    GoToJail = 30,
+    Boardwalk = 39
 }

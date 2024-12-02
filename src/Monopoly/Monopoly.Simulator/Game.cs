@@ -6,8 +6,6 @@ namespace Monopoly.Simulator;
 
 internal sealed class Game
 {
-    private const int Squares = 40;
-
     public Random Random { get; }
     public Square Square { get; private set; } = Square.Go;
     public bool InJail { get; private set; }
@@ -55,8 +53,6 @@ internal sealed class Game
             }
             else
             {
-                PrintStatus(a, b);
-
                 return;
             }
         }
@@ -68,8 +64,7 @@ internal sealed class Game
             if (Doubles == 3)
             {
                 GoToJail();
-                PrintStatus(a, b);
-
+                
                 return;
             }
         }
@@ -78,16 +73,13 @@ internal sealed class Game
             Doubles = 0;
         }
 
-        Square = (Square)((int)(Square + a + b) % Squares);
+        Square = (Square)((int)(Square + a + b) % (int)(Square.Boardwalk + 1));
 
         if (Square == Square.GoToJail)
         {
             GoToJail();
-            PrintStatus(a, b);
-
+            
             return;
         }
-
-        PrintStatus(a, b);
     }
 }
