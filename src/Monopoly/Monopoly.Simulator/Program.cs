@@ -38,12 +38,11 @@ internal static class Program
             random = Random.Shared;
         }
 
+        Game game = new Game(random);
+
         for (; turns > 0; turns--)
         {
-            int a = random.Next(1, 7);
-            int b = random.Next(1, 7);
-
-            Console.WriteLine($"{a} {b}");
+            game.Move();
         }
     }
 }
