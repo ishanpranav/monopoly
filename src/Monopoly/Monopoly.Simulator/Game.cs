@@ -1,4 +1,4 @@
-﻿// Game.cs
+// Game.cs
 // Copyright (c) 2023-2024 Ishan Pranav. All rights reserved.
 // Licensed under the MIT License.
 
@@ -82,7 +82,7 @@ internal sealed class Game
 
     private static Square NearestUtility(Square square)
     {
-        if (square < Square.ElectricCompany || square > Square.WaterWorks)
+        if (square <= Square.ElectricCompany || square > Square.WaterWorks)
         {
             return Square.ElectricCompany;
         }
