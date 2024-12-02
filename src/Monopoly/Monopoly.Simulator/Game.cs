@@ -2,6 +2,8 @@
 // Copyright (c) 2023-2024 Ishan Pranav. All rights reserved.
 // Licensed under the MIT License.
 
+using Monopoly.Simulator.Decks;
+
 namespace Monopoly.Simulator;
 
 internal sealed class Game
@@ -17,8 +19,8 @@ internal sealed class Game
 
         const int cards = 16;
 
-        _chance = new Deck<Chance>(cards, random);
-        _communityChest = new Deck<CommunityChest>(cards, random);
+        _chance = new UniformDeck<Chance>(cards, random);
+        _communityChest = new UniformDeck<CommunityChest>(cards, random);
 
         for (int card = 0; card < cards; card++)
         {
@@ -36,28 +38,14 @@ internal sealed class Game
 
     public Random Random { get; }
     public Square Square { get; private set; } = Square.Go;
-    public bool InJail { get; private set; }
-    public int JailTime { get; private set; }
+    public int InJail { get; private set; }
     public int Doubles { get; private set; }
-
-    private void PrintStatus(int a, int b)
-    {
-        Console.Write($"I rolled {a}, {b} and I'm at {Square}");
-
-        if (Square == Square.Jail && InJail)
-        {
-            Console.Write(" and I'm in jail");
-        }
-
-        Console.WriteLine();
-        Console.ReadKey(intercept: true);
-    }
 
     private void GoToJail()
     {
         Square = Square.Jail;
         Doubles = 0;
-        InJail = true;
+        InJail = 1;
     }
 
     private static Square NearestRailroad(Square square)
@@ -171,17 +159,28 @@ internal sealed class Game
 
     public void Move()
     {
+        if (InJail > 0)
+        {
+            if (InJail == 3)
+            {
+                InJail = 0;
+                Doubles = 0;
+            }
+            else
+            {
+                InJail++;
+            }
+        }
+
         int a = Random.Next(1, 7);
         int b = Random.Next(1, 7);
 
-        if (InJail)
+        if (InJail > 0)
         {
-            JailTime++;
-
-            if (a == b || JailTime == 3)
+            if (a == b)
             {
-                InJail = false;
-                JailTime = 0;
+                InJail = 0;
+                Doubles = 0;
             }
             else
             {

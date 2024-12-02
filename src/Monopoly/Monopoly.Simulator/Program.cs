@@ -37,6 +37,9 @@ internal static class Program
         {
             random = Random.Shared;
         }
+        
+        Console.WriteLine("| {0,-32} | Probability |", "Square");
+        Console.WriteLine("|-{0,-32}-|------------:|", new string('-', 32));
 
         Game game = new Game(random);
         int[] frequencies = new int[(int)(Square.Boardwalk + 1)];
@@ -58,18 +61,15 @@ internal static class Program
 
         double total = 0;
 
-        Console.WriteLine("|{0,-32}| Probability |", "Square");
-        Console.WriteLine("|{0,-32}|-------------|", new string('-', 32));
-
         foreach (Square square in squares)
         {
             double probability = (double)frequencies[(int)square] / turns;
 
             total += probability;
 
-            Console.WriteLine("| {0,-32} |{1,-13:p2}|", square, probability);
+            Console.WriteLine("| {0,-32} | {1,-13:p2} |", square, probability);
         }
 
-        Console.WriteLine("|{0,-32}|{1,-13:p2}|", "TOTAL", total);
+        Console.WriteLine("| {0,-32} | {1,-13:p2} |", "__Total__", total);
     }
 }

@@ -2,14 +2,13 @@
 // Copyright (c) 2023-2024 Ishan Pranav. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Monopoly.Simulator;
+namespace Monopoly.Simulator.Decks;
 
-internal class Deck<T>
+internal abstract class Deck<T>
 {
     private readonly T[] _cards;
-    private int _index;
 
-    public Deck(int count, Random random)
+    protected Deck(int count, Random random)
     {
         Random = random;
         _cards = new T[count];
@@ -27,6 +26,14 @@ internal class Deck<T>
         }
     }
 
+    public int Count
+    {
+        get
+        {
+            return _cards.Length;
+        }
+    }
+
     public Random Random { get; }
 
     public void Shuffle()
@@ -41,19 +48,5 @@ internal class Deck<T>
         }
     }
 
-    public T Draw()
-    {
-        if (_index == _cards.Length)
-        {
-            _index = 0;
-
-            Shuffle();
-        }
-
-        T result = _cards[_index];
-
-        _index++;
-
-        return result;
-    }
+    public abstract T Draw();
 }
